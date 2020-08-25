@@ -1,4 +1,4 @@
-.caption {
+.card {
     width: 20%;
     height: 150px;
     display: flex;
@@ -7,7 +7,7 @@
     color: green;
 }
 
-.caption hr {
+.card hr {
     width: 90%;
     height: 1px;
     color: black;
@@ -15,11 +15,11 @@
     margin: .5rem auto .8rem;
 }
 
-.caption-header {
+.card-header {
     margin: .5rem 1rem 0;
 }
 
-.caption-body {
+.card-body {
     margin: 0 1rem;
     font-size: 17px;
 }

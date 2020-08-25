@@ -1,10 +1,11 @@
-import React from "react";
-import Caption from "./Caption";
+import React from 'react';
+import Card from '../card/Card';
+import './Content.css'
 
 function Content() {
     return (
         <div className="content">
-            <Caption/>
+            <Card />
         </div>
     )
 }
