@@ -5,7 +5,9 @@ import './Content.css'
 function Content() {
     return (
         <div className="content">
-            <Card />
+            <div className="container">
+                <Card />
+            </div>
         </div>
     )
 }

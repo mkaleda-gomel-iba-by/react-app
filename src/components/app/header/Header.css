@@ -1,12 +1,15 @@
 .header {
     width: 100%;
-    border: .4rem solid blue;
+    height: 70px;
     display: flex;
-    justify-content: center;
-    padding: .7rem;
-    margin-top: 1.5rem;
+    align-items: center;
+    background: #96d3ef;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
 .header-title {
-    color: blue;
+    color: white;
 }
