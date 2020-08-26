@@ -1,0 +1,6 @@
+.content {
+    border: .4rem solid black;
+    border-top: 0;
+    height: 500px;
+    padding: 3rem 2rem;
+}

@@ -1,0 +1,25 @@
+.card {
+    width: 20%;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    border: .3rem solid green;
+    color: green;
+}
+
+.card hr {
+    width: 90%;
+    height: 1px;
+    color: black;
+    background: black;
+    margin: .5rem auto .8rem;
+}
+
+.card-header {
+    margin: .5rem 1rem 0;
+}
+
+.card-body {
+    margin: 0 1rem;
+    font-size: 17px;
+}
