@@ -4,12 +4,12 @@ import Content from './content/Content';
 import './App.css'
 
 function App() {
-  return (
-    <div className="container">
-      <Header />
-      <Content />
-    </div>
-  );
+    return (
+        <React.Fragment>
+            <Header />
+            <Content />
+        </React.Fragment>
+    );
 }
 
 export default App;
