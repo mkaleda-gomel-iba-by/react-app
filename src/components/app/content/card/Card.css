@@ -1,6 +1,6 @@
 .card {
     width: calc(25% - 1rem);
-    height: 300px;
+    min-height: 300px;
     display: flex;
     flex-direction: column;
     margin: 1rem .5rem 1rem;
@@ -16,13 +16,35 @@
     justify-content: space-between;
     align-items: center;
     color: white;
+    min-height: 60px;
 }
 
-.card-header input {
-    transform:scale(1.5);
+.card-header-title {
+    width: 75%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+
+.view-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 20%;
+}
+
+.view-panel input {
+    transform: scale(1.5);
+}
+
+.edit-panel {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    width: 20%;
 }
 
 .card-body {
-    margin: 0 1rem;
-    font-size: 17px;
+    max-height: 250px;
+    overflow-y: scroll;
 }
