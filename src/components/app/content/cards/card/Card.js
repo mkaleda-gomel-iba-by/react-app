@@ -15,7 +15,7 @@ function Card({readonly}) {
         setEdit(false);
         setHeader(backupHeader)
         setBody(backupBody)
-    }, [readonly])
+    }, [readonly, backupHeader, backupBody])
 
     return (
         <div className="card">
