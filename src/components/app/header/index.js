@@ -1,9 +1,9 @@
 import React from 'react';
-import './Header.css'
+import './index.css'
 
 function Header() {
     return (
-        <div className="header">
+        <div className="header header-layout">
             <div className="container">
                 <h1 className="header-title">Header</h1>
             </div>
