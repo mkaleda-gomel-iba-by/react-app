@@ -1,14 +1,13 @@
-import React from 'react';
-import Header from './header/Header';
-import Content from './content/Content';
-import './App.css'
+import React, {Fragment} from 'react';
+import Header from './header';
+import Content from './content';
 
 function App() {
     return (
-        <React.Fragment>
+        <Fragment>
             <Header />
             <Content />
-        </React.Fragment>
+        </Fragment>
     );
 }
 

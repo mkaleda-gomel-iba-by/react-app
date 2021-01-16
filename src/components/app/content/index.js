@@ -1,10 +1,10 @@
 import React from 'react';
-import Card from './card/Card';
-import './Content.css'
+import './index.css';
+import Card from "./card";
 
 function Content() {
     return (
-        <div className="content">
+        <div className="content content-layout">
             <div className="container">
                 <Card />
             </div>
