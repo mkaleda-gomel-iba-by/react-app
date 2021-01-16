@@ -11,19 +11,19 @@ function Card() {
     const [cardData, setCardData] = useState({header: initHeader, body: initBody})
     const [backupState, setBackupState] = useState({header: initBody, body: initBody})
 
-    let cancelEditing = () => setCardOptions({editable: false, checked: cardOptions.checked})
-    let saveCardDataChanges = () => {
+    const cancelEditing = () => setCardOptions({editable: false, checked: cardOptions.checked})
+    const saveCardDataChanges = () => {
         cancelEditing()
         setBackupState({header: cardData.header, body: cardData.body})
     }
-    let restoreCardData = () => {
+    const restoreCardData = () => {
         cancelEditing()
         setCardData({header: backupState.header, body: backupState.body})
     }
-    let editCard = () => setCardOptions({editable: true, checked: false})
-    let selectCard = () => setCardOptions({checked: !cardOptions.checked, editable: cardOptions.editable})
-    let fillHeader = (event) => setCardData({header: event.target.value, body: cardData.body})
-    let fillBody = (event) => setCardData({header: cardData.header, body: event.target.value})
+    const editCard = () => setCardOptions({editable: true, checked: false})
+    const selectCard = () => setCardOptions({checked: !cardOptions.checked, editable: cardOptions.editable})
+    const fillHeader = (event) => setCardData({header: event.target.value, body: cardData.body})
+    const fillBody = (event) => setCardData({header: cardData.header, body: event.target.value})
 
     const editPanel = <Fragment>
         <i className="fa fa-folder" onClick={saveCardDataChanges}/>
