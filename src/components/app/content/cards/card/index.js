@@ -1,15 +1,20 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import './index.css'
 
 const classNames = require('classnames');
 
-function Card() {
+function Card({readonly}) {
     const initHeader = 'Caption';
     const initBody = 'Text...';
 
     const [cardOptions, setCardOptions] = useState({checked: false, editable: false})
     const [cardData, setCardData] = useState({header: initHeader, body: initBody})
     const [backupState, setBackupState] = useState({header: initBody, body: initBody})
+
+    useEffect(() => {
+        setCardOptions({checked: cardOptions.checked, editable: false})
+        setCardData({header: backupState.header, body: backupState.body})
+    }, [readonly])
 
     const cancelEditing = () => setCardOptions({editable: false, checked: cardOptions.checked})
     const saveCardDataChanges = () => {
@@ -31,7 +36,7 @@ function Card() {
     </Fragment>
 
     const viewPanel = <Fragment>
-        <i className="fa fa-pencil" aria-hidden="true" onClick={editCard}/>
+        {readonly || (<i className="fa fa-pencil" aria-hidden="true" onClick={editCard}/>)}
         <input type="checkbox" checked={cardOptions.checked} onChange={selectCard}/>
     </Fragment>
 
