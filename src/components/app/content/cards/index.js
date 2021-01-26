@@ -5,7 +5,8 @@ import Card from "./card";
 function Cards(props) {
     return (
         <div className="cards">
-            {props.cards.map(card => <Card readonly={props.readOnly} key={card.id}/>)}
+            {props.cards.map(card => <Card readonly={props.readOnly} initHeader={card.header} initBody={card.body}
+                                           key={card.id}/>)}
         </div>
     )
 }

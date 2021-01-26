@@ -4,7 +4,16 @@ import Cards from "./cards";
 
 function Content() {
     const [readOnly, setReadOnly] = useState(false)
-    const cards = [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}, {id: 7}, {id: 8}]
+    const cards = [
+        {id: 1, header: 'Caption', body: 'Text...'},
+        {id: 2, header: 'Caption', body: 'Text...'},
+        {id: 3, header: 'Caption', body: 'Text...'},
+        {id: 4, header: 'Caption', body: 'Text...'},
+        {id: 5, header: 'Caption', body: 'Text...'},
+        {id: 6, header: 'Caption', body: 'Text...'},
+        {id: 7, header: 'Caption', body: 'Text...'},
+        {id: 8, header: 'Caption', body: 'Text...'}
+    ]
 
     return (
         <div className="content content-layout">

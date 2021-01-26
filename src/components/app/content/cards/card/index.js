@@ -3,18 +3,15 @@ import './index.css'
 
 const classNames = require('classnames');
 
-function Card({readonly}) {
-    const initHeader = 'Caption';
-    const initBody = 'Text...';
-
+function Card(props) {
     const [cardOptions, setCardOptions] = useState({checked: false, editable: false})
-    const [cardData, setCardData] = useState({header: initHeader, body: initBody})
-    const [backupState, setBackupState] = useState({header: initBody, body: initBody})
+    const [cardData, setCardData] = useState({header: props.initHeader, body: props.initBody})
+    const [backupState, setBackupState] = useState({header: props.initHeader, body: props.initBody})
 
     useEffect(() => {
         setCardOptions({checked: cardOptions.checked, editable: false})
         setCardData({header: backupState.header, body: backupState.body})
-    }, [readonly])
+    }, [props.readonly, backupState.body, backupState.header, cardOptions.checked])
 
     const cancelEditing = () => setCardOptions({editable: false, checked: cardOptions.checked})
     const saveCardDataChanges = () => {
@@ -36,7 +33,7 @@ function Card({readonly}) {
     </Fragment>
 
     const viewPanel = <Fragment>
-        {readonly || (<i className="fa fa-pencil" aria-hidden="true" onClick={editCard}/>)}
+        {props.readonly || (<i className="fa fa-pencil" aria-hidden="true" onClick={editCard}/>)}
         <input type="checkbox" checked={cardOptions.checked} onChange={selectCard}/>
     </Fragment>
 
