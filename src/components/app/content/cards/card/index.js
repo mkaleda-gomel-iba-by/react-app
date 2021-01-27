@@ -1,4 +1,4 @@
-import React, {Fragment, useCallback, useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import './index.css'
 
 const classNames = require('classnames');
@@ -8,17 +8,15 @@ function Card(props) {
     const [cardData, setCardData] = useState({header: props.cardData.header, body: props.cardData.body})
     const [backupState, setBackupState] = useState({...cardData})
 
-    const cancelEditing = useCallback(() => setCardOptions({...cardOptions, editable: false}), [cardOptions])
-    const restoreCardData = useCallback(() => {
+    const cancelEditing = () => setCardOptions({...cardOptions, editable: false})
+    const restoreCardData = () => {
         cancelEditing()
         setCardData({...backupState})
-    }, [backupState, cancelEditing])
+    }
 
     useEffect(() => {
-        if (props.readonly) {
-            restoreCardData()
-        }
-    }, [props.readonly, restoreCardData])
+        restoreCardData()
+    }, [props.readonly])
 
     const saveCardDataChanges = () => {
         cancelEditing()
