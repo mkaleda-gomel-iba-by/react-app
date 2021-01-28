@@ -4,53 +4,44 @@ import './index.css'
 const classNames = require('classnames');
 
 function Card(props) {
-    const [cardOptions, setCardOptions] = useState({checked: false, editable: false})
-    const [cardData, setCardData] = useState({header: props.cardData.header, body: props.cardData.body})
-    const [backupState, setBackupState] = useState({...cardData})
+    const cardData = props.cardData
+    const cardId = cardData.id
 
-    const cancelEditing = () => setCardOptions({...cardOptions, editable: false})
-    const restoreCardData = () => {
-        cancelEditing()
-        setCardData({...backupState})
-    }
+    const [backupState, setBackupState] = useState({header: 'Caption', body: 'Text...'})
 
     useEffect(() => {
-        restoreCardData()
-    }, [props.readonly])
+        console.log(backupState)
+        props.restoreCardData(cardId, backupState);
+        }, [props.readonly, backupState, cardId])
 
     const saveCardDataChanges = () => {
-        cancelEditing()
-        setBackupState({...cardData})
+        props.cancelEditing(cardId)
+        setBackupState({header: cardData.header, body: cardData.body})
     }
-
-    const editCard = () => setCardOptions({editable: true, checked: false})
-    const selectCard = () => setCardOptions({...cardOptions, checked: !cardOptions.checked})
-    const fillHeader = (event) => setCardData({...cardData, header: event.target.value})
-    const fillBody = (event) => setCardData({...cardData, body: event.target.value})
 
     const editPanel = <Fragment>
         <i className="fa fa-folder" onClick={saveCardDataChanges}/>
-        <i className="fa fa-close" onClick={restoreCardData}/>
+        <i className="fa fa-close" onClick={() => props.restoreCardData(cardId, backupState)}/>
     </Fragment>
 
     const viewPanel = <Fragment>
-        {props.readonly || (<i className="fa fa-pencil" aria-hidden="true" onClick={editCard}/>)}
-        <input type="checkbox" checked={cardOptions.checked} onChange={selectCard}/>
+        {props.readonly || (<i className="fa fa-pencil" aria-hidden="true" onClick={() => props.editCard(cardId)}/>)}
+        <input type="checkbox" checked={cardData.checked} onChange={() => props.selectCard(cardId)}/>
     </Fragment>
 
-    let panel = cardOptions.editable ? editPanel : viewPanel
+    let panel = cardData.editable ? editPanel : viewPanel
 
     return (
         <div className="card card-layout">
-            <div className={classNames('card-header', {'card-header-active': cardOptions.checked})}>
+            <div className={classNames('card-header', {'card-header-active': cardData.checked})}>
                 <input className="card-header-title card-header-title-layout" type="text" value={cardData.header}
-                       disabled={!cardOptions.editable} onInput={fillHeader}/>
+                       disabled={!cardData.editable} onInput={(event) => props.fillHeader(cardId, event)}/>
                 <div className="panel panel-layout">
                     {panel}
                 </div>
             </div>
             <div className="card-body">
-                <textarea value={cardData.body} disabled={!cardOptions.editable} onInput={fillBody}/>
+                <textarea value={cardData.body} disabled={!cardData.editable} onInput={(event) => props.fillBody(cardId, event)}/>
             </div>
         </div>
     )
