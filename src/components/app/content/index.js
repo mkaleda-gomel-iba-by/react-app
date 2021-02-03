@@ -5,25 +5,21 @@ import Cards from "./cards";
 function Content() {
     const [readOnly, setReadOnly] = useState(false)
     const [cards, setCards] = useState([
-        {id: 1, header: 'Caption', body: 'Text...', checked: false, editable: false},
-        {id: 2, header: 'Caption', body: 'Text...', checked: false, editable: false},
-        {id: 3, header: 'Caption', body: 'Text...', checked: false, editable: false},
-        {id: 4, header: 'Caption', body: 'Text...', checked: false, editable: false},
-        {id: 5, header: 'Caption', body: 'Text...', checked: false, editable: false},
-        {id: 6, header: 'Caption', body: 'Text...', checked: false, editable: false},
-        {id: 7, header: 'Caption', body: 'Text...', checked: false, editable: false},
-        {id: 8, header: 'Caption', body: 'Text...', checked: false, editable: false},
+        {id: 1, header: 'Caption', body: 'Text...'},
+        {id: 2, header: 'Caption', body: 'Text...'},
+        {id: 3, header: 'Caption', body: 'Text...'},
+        {id: 4, header: 'Caption', body: 'Text...'},
+        {id: 5, header: 'Caption', body: 'Text...'},
+        {id: 6, header: 'Caption', body: 'Text...'},
+        {id: 7, header: 'Caption', body: 'Text...'},
+        {id: 8, header: 'Caption', body: 'Text...'},
     ])
 
-    const editCard = (cardId, cardData) => {
-        setCards(
-            cards.map(card => {
-                if (card.id === cardId) {
-                    card = cardData
-                }
-                return card
-            })
-        )
+    function saveCardData(cardId, tempState) {
+        let card = cards.find(card => card.id === cardId)
+        card.header = tempState.header
+        card.body = tempState.body
+        setCards(cards)
     }
 
     return (
@@ -32,7 +28,7 @@ function Content() {
                 <div className="cards-panel-layout">
                     <label><input type="checkbox" onInput={() => setReadOnly(!readOnly)}/>Readonly</label>
                 </div>
-                <Cards readonly={readOnly} cards={cards} editCard={editCard}/>
+                <Cards readOnly={readOnly} cards={cards} saveCardData={saveCardData}/>
             </div>
         </div>
     )

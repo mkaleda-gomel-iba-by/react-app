@@ -6,7 +6,7 @@ function Cards(props) {
     return (
         <div className="cards">
             {props.cards.map(card => {
-                return <Card cardData={card} editCard={props.editCard} readOnly={props.readonly} key={card.id}/>
+                return <Card cardData={card} saveCardData={props.saveCardData} readOnly={props.readOnly} key={card.id}/>
             })}
         </div>
     )
