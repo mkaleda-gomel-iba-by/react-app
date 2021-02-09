@@ -42,8 +42,8 @@
 
 .panel {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .panel input {
@@ -53,6 +53,10 @@
 .panel-layout {
     width: 20%;
     font-size: 1.2rem;
+}
+
+.panel-layout i {
+    margin-right: 1rem;
 }
 
 .card-body textarea {
