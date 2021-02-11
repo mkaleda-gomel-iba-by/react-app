@@ -1,0 +1,7 @@
+.card-body textarea {
+    border: 0;
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+    resize: none;
+}

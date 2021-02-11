@@ -48,7 +48,7 @@ function Content() {
     `
 
     const Checkbox = styled.input.attrs(
-        {type: 'checkbox', onClick: () => setReadOnly(!readOnly), checked: readOnly})`
+        {type: 'checkbox', onChange: () => setReadOnly(!readOnly), checked: readOnly})`
       position: absolute;
       opacity: 0;
       cursor: pointer;
