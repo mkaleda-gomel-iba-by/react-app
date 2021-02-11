@@ -10,3 +10,15 @@
     display: flex;
     flex-direction: column;
 }
+
+.cards-panel {
+    display: block;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.cards-panel-layout {
+    position: relative;
+    padding-left: 2rem;
+    margin: .5rem 0 -1rem 0;
+}
