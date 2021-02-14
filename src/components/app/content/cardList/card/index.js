@@ -35,7 +35,7 @@ function Card(props) {
         <Context.Provider
             value={{fillHeader, fillBody, selectCard, editMode, saveCardDataChanges, restoreCardDataChanges}}>
             <div className="card card-layout">
-                <CardHeader cardOptions={cardOptions} header={tempState.header}/>
+                <CardHeader cardOptions={cardOptions} header={tempState.header} readOnly={props.readOnly}/>
                 <CardBody editable={cardOptions.editable} body={tempState.body}/>
             </div>
         </Context.Provider>

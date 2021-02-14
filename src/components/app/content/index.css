@@ -12,7 +12,8 @@
 }
 
 .cards-panel {
-    display: block;
+    display: flex;
+    justify-content: space-between;
     cursor: pointer;
     font-size: 22px;
 }
@@ -21,4 +22,12 @@
     position: relative;
     padding-left: 2rem;
     margin: .5rem 0 -1rem 0;
+}
+
+.delete-cards {
+    border: 0;
+}
+
+.delete-cards:active {
+    border: 0;
 }
