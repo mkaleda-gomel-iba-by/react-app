@@ -1,5 +1,5 @@
 import React, {Fragment, useContext} from 'react';
-import Context from "../context";
+import Context from "../../../context";
 import "./index.css"
 
 const classNames = require('classnames');
@@ -16,7 +16,7 @@ function CardHeader(props) {
         <input type="checkbox" checked={props.cardOptions.checked} onChange={() => selectCard()}/>
     </Fragment>
 
-    let panel = props.cardOptions.editable ? editPanel : viewPanel
+    let panel = props.cardOptions.editable ? editPanel : viewPanel;
 
 
     return (
