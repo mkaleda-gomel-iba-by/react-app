@@ -1,10 +1,9 @@
-import React, {useContext} from 'react';
-import Context from "../../../context";
+import React from 'react';
 import "./index.css"
+import {useCardTempState} from "../../../context";
 
 function CardBody(props) {
-    const {fillBody} = useContext(Context)
-
+    const{fillBody} = useCardTempState()
     return (
         <div className="card-body">
                 <textarea value={props.body} disabled={!props.editable}

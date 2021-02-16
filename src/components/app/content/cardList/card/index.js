@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import Context from "../../context";
+import {CardTempStateProvider} from "../../context";
 import './index.css'
 import CardHeader from "./cardHeader";
 import CardBody from "./cardBody";
@@ -8,26 +8,24 @@ function Card(props) {
     const cardData = props.cardData;
     const cardId = cardData.id;
 
-    const [tempState, setTempState] = useState({header: props.cardData.header, body: props.cardData.body});
     const [editable, setEditable] = useState(false);
+
+    // const {cardTempState, restoreCardTempState} = useCardTempState()
 
     const cancelEditing = () => setEditable(false);
 
     const saveCardDataChanges = () => {
         cancelEditing();
-        props.saveCardData(cardId, tempState);
+        // props.saveCardData(cardId, cardTempState);
     };
     const restoreCardDataChanges = useCallback(() => {
         cancelEditing();
-        setTempState({header: cardData.header, body: cardData.body});
-    }, [cardData.header, cardData.body]);
+        // restoreCardTempState({...cardData});
+    }, [cardData]);
 
     useEffect(() => {
         restoreCardDataChanges();
     }, [props.readOnly, restoreCardDataChanges]);
-
-    const fillHeader = (event) => setTempState({...tempState, header: event.target.value});
-    const fillBody = (event) => setTempState({...tempState, body: event.target.value});
 
     const selectCard = () => {
         setEditable(false);
@@ -39,14 +37,14 @@ function Card(props) {
     };
 
     return (
-        <Context.Provider
-            value={{fillHeader, fillBody, selectCard, editMode, saveCardDataChanges, restoreCardDataChanges}}>
+        <CardTempStateProvider initialState={{...cardData}}>
             <div className="card card-layout">
-                <CardHeader cardOptions={{checked: props.checked, editable: editable}} header={tempState.header}
-                            readOnly={props.readOnly}/>
-                <CardBody editable={editable} body={tempState.body}/>
+                <CardHeader cardOptions={{checked: props.checked, editable: editable}} readOnly={props.readOnly}
+                            selectCard={selectCard} editMode={editMode} restoreCardDataChanges={restoreCardDataChanges}
+                            saveCardDataChanges={saveCardDataChanges}/>
+                <CardBody editable={editable}/>
             </div>
-        </Context.Provider>
+        </CardTempStateProvider>
     )
 }
 
