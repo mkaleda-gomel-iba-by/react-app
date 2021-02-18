@@ -1,19 +1,19 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useContext} from 'react';
+import Context from "../../../context";
 import "./index.css"
-import {useCardTempState} from "../../../context";
 
 const classNames = require('classnames');
 
 function CardHeader(props) {
-    const {fillHeader} = useCardTempState()
+    const {fillHeader, selectCard, editMode, saveCardDataChanges, restoreCardDataChanges} = useContext(Context)
     const editPanel = <Fragment>
-        <i className="fa fa-folder" onClick={() => props.saveCardDataChanges()}/>
-        <i className="fa fa-close" onClick={() => props.restoreCardDataChanges()}/>
+        <i className="fa fa-folder" onClick={() => saveCardDataChanges()}/>
+        <i className="fa fa-close" onClick={() => restoreCardDataChanges()}/>
     </Fragment>
 
     const viewPanel = <Fragment>
-        {props.readOnly || <i className="fa fa-pencil" aria-hidden="true" onClick={() => props.editMode()}/>}
-        <input type="checkbox" checked={props.cardOptions.checked} onChange={() => props.selectCard()}/>
+        {props.readOnly || <i className="fa fa-pencil" aria-hidden="true" onClick={() => editMode()}/>}
+        <input type="checkbox" checked={props.cardOptions.checked} onChange={() => selectCard()}/>
     </Fragment>
 
     let panel = props.cardOptions.editable ? editPanel : viewPanel;
