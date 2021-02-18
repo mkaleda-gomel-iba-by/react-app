@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import Context from "../../context";
 import './index.css'
 import CardHeader from "./cardHeader";
 import CardBody from "./cardBody";
@@ -39,14 +38,16 @@ function Card(props) {
     };
 
     return (
-        <Context.Provider
-            value={{fillHeader, fillBody, selectCard, editMode, saveCardDataChanges, restoreCardDataChanges}}>
             <div className="card card-layout">
                 <CardHeader cardOptions={{checked: props.checked, editable: editable}} header={tempState.header}
+                            selectCard={selectCard}
+                            editMode={editMode}
+                            fillHeader={fillHeader}
+                            saveCardDataChanges={saveCardDataChanges}
+                            restoreCardDataChanges={restoreCardDataChanges}
                             readOnly={props.readOnly}/>
-                <CardBody editable={editable} body={tempState.body}/>
+                <CardBody editable={editable} body={tempState.body} fillBody={fillBody}/>
             </div>
-        </Context.Provider>
     )
 }
 
