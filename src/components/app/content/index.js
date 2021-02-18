@@ -1,20 +1,24 @@
 import React, {useState} from 'react';
 import './index.css';
 import CardList from "./cardList";
-import Checkbox from "./checkbox";
+import AddCardModal from "./AddCardModal";
+import CardsPanel from "./CardsPanel";
 
 function Content() {
+    const defaultData = {header: 'Caption', body: 'Text...'}
     const [readOnly, setReadOnly] = useState(false);
     const [cards, setCards] = useState([
-        {id: 1, header: 'Caption', body: 'Text...'},
-        {id: 2, header: 'Caption', body: 'Text...'},
-        {id: 3, header: 'Caption', body: 'Text...'},
-        {id: 4, header: 'Caption', body: 'Text...'},
-        {id: 5, header: 'Caption', body: 'Text...'},
-        {id: 6, header: 'Caption', body: 'Text...'},
-        {id: 7, header: 'Caption', body: 'Text...'},
-        {id: 8, header: 'Caption', body: 'Text...'},
+        {id: 1, ...defaultData},
+        {id: 2, ...defaultData},
+        {id: 3, ...defaultData},
+        {id: 4, ...defaultData},
+        {id: 5, ...defaultData},
+        {id: 6, ...defaultData},
+        {id: 7, ...defaultData},
+        {id: 8, ...defaultData}
     ]);
+    const [addCardModalVisible, setAddCardModalVisible] = useState(false)
+    const toggleAddCardModal = () => setAddCardModalVisible(prevState => !prevState)
 
     const [checkedCardIds, setCheckedCardIds] = useState([]);
 
@@ -53,15 +57,25 @@ function Content() {
         setCards(cards);
     }
 
+    function addCard(cardData) {
+        const generatedId = cards.map((item) => item.id).sort((a, b) => b - a)[0] + 1
+        setCards([...cards, {id: generatedId, ...cardData}])
+    }
+
     return (
         <div className="content content-layout">
             <div className="container">
-                <div className="cards-panel cards-panel-layout">
-                    <Checkbox setChecked={setReadOnly} checked={readOnly} label={'Readonly'}/>
-                    <button className="delete-cards" onClick={() => deleteCards()}>Delete cards</button>
-                </div>
-                <CardList readOnly={readOnly} cards={cards} checkedControl={checkedControl}
-                          checkedCardIds={checkedCardIds} saveCardData={saveCardData}/>
+                <CardsPanel toggleAddCardModal={toggleAddCardModal}
+                            deleteCards={deleteCards}
+                            setReadOnly={setReadOnly}
+                            readOnly={readOnly}
+                            isSelected={checkedCardIds.length === 0}/>
+                <AddCardModal addCardDataVisible={addCardModalVisible} addCard={addCard}/>
+                <CardList readOnly={readOnly}
+                          cards={cards}
+                          checkedControl={checkedControl}
+                          checkedCardIds={checkedCardIds}
+                          saveCardData={saveCardData}/>
             </div>
         </div>
     )

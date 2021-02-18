@@ -20,14 +20,17 @@
 
 .cards-panel-layout {
     position: relative;
-    padding-left: 2rem;
+    padding: 0 .6rem 0 2rem;
     margin: .5rem 0 -1rem 0;
 }
 
-.delete-cards {
-    border: 0;
+.cards-manage-button {
+    background: #96d3ef;
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
 }
 
-.delete-cards:active {
-    border: 0;
+.cards-manage-button:hover {
+    border: 2px solid rebeccapurple;
 }
