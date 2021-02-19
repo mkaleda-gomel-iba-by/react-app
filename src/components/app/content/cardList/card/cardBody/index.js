@@ -5,7 +5,7 @@ function CardBody(props) {
     return (
         <div className="card-body">
                 <textarea value={props.body} disabled={!props.editable}
-                          onChange={(event) => props.fillBody(event)}/>
+                          onChange={(event) => props.fillData({body: event.target.value})}/>
         </div>
     )
 }

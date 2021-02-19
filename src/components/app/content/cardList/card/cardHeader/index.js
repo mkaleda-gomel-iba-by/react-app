@@ -20,7 +20,7 @@ function CardHeader(props) {
         <div className={classNames('card-header', {'card-header-active': props.cardOptions.checked})}>
             <input className="card-header-title card-header-title-layout" type="text" value={props.header}
                    disabled={!props.cardOptions.editable}
-                   onInput={(event) => props.fillHeader(event)}/>
+                   onInput={(event) => props.fillData({header: event.target.value})}/>
             <div className="panel panel-layout">
                 {panel}
             </div>

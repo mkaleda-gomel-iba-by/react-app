@@ -7,7 +7,7 @@ function Card(props) {
     const cardData = props.cardData;
     const cardId = cardData.id;
 
-    const [tempState, setTempState] = useState({header: props.cardData.header, body: props.cardData.body});
+    const [tempState, setTempState] = useState({...cardData});
     const [editable, setEditable] = useState(false);
 
     const cancelEditing = () => setEditable(false);
@@ -18,15 +18,14 @@ function Card(props) {
     };
     const restoreCardDataChanges = useCallback(() => {
         cancelEditing();
-        setTempState({header: cardData.header, body: cardData.body});
-    }, [cardData.header, cardData.body]);
+        setTempState({...cardData});
+    }, [cardData]);
 
     useEffect(() => {
         restoreCardDataChanges();
     }, [props.readOnly, restoreCardDataChanges]);
 
-    const fillHeader = (event) => setTempState({...tempState, header: event.target.value});
-    const fillBody = (event) => setTempState({...tempState, body: event.target.value});
+    const fillData = (data) => setTempState({...tempState, ...data})
 
     const selectCard = () => {
         setEditable(false);
@@ -42,11 +41,11 @@ function Card(props) {
                 <CardHeader cardOptions={{checked: props.checked, editable: editable}} header={tempState.header}
                             selectCard={selectCard}
                             editMode={editMode}
-                            fillHeader={fillHeader}
+                            fillData={fillData}
                             saveCardDataChanges={saveCardDataChanges}
                             restoreCardDataChanges={restoreCardDataChanges}
                             readOnly={props.readOnly}/>
-                <CardBody editable={editable} body={tempState.body} fillBody={fillBody}/>
+                <CardBody editable={editable} body={tempState.body} fillData={fillData}/>
             </div>
     )
 }
