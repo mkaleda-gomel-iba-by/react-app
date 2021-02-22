@@ -2,15 +2,21 @@ import React, {useState} from "react";
 
 export default function AddCardModal(props) {
     const [newCardData, setNewCardData] = useState({header: '', body: ''})
+    const saveCard = () => {
+        props.addCard(newCardData);
+        setNewCardData({header: '', body: ''})
+    }
     if (!props.addCardDataVisible) return null
     return (
-        <div>
-            <h3>Fill card data</h3>
+        <div className="add-card-modal add-card-modal-layout">
+            <h5>Fill card data</h5>
             <input type="text" placeholder="Header"
                    onInput={(event) => setNewCardData({...newCardData, header: event.target.value})}/>
+            &nbsp;
             <input type="text" placeholder="Body"
                    onInput={(event) => setNewCardData({...newCardData, body: event.target.value})}/>
-            <button className="cards-manage-button" onClick={() => props.addCard(newCardData)}>Add card</button>
+            &nbsp;
+            <button onClick={() => saveCard()}>Save card</button>
         </div>
     )
 }

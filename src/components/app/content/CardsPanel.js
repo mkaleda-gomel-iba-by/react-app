@@ -8,6 +8,7 @@ export default function CardsPanel(props) {
             <div className="buttons-wrapper">
                 {props.isSelected ||
                 <button className="cards-manage-button" onClick={() => props.deleteCards()}>Delete cards</button>}
+                &nbsp;
                 <button className="cards-manage-button" onClick={() => props.toggleAddCardModal()}>Add card</button>
             </div>
         </div>

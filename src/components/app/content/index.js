@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './index.css';
+import { v4 as uuidv4 } from 'uuid';
 import CardList from "./cardList";
 import AddCardModal from "./AddCardModal";
 import CardsPanel from "./CardsPanel";
@@ -59,7 +60,7 @@ function Content() {
     }
 
     function addCard(cardData) {
-        const generatedId = cards.map((item) => item.id).sort((a, b) => b - a)[0] + 1
+        const generatedId = uuidv4()
         setCards([...cards, {id: generatedId, ...cardData}])
     }
 

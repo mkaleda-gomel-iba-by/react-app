@@ -1,7 +1,6 @@
 import React, {Fragment} from 'react';
+import classNames from 'classnames';
 import "./index.css"
-
-const classNames = require('classnames');
 
 function CardHeader(props) {
     const editPanel = <Fragment>
