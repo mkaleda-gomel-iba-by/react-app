@@ -20,14 +20,41 @@
 
 .cards-panel-layout {
     position: relative;
-    padding-left: 2rem;
-    margin: .5rem 0 -1rem 0;
+    padding: 0 .6rem 0 2rem;
+    margin: 1rem 0 0 .1rem;;
 }
 
-.delete-cards {
-    border: 0;
+.cards-manage-button {
+    background: #96d3ef;
+    color: white;
+    border: 2px solid transparent;
+    border-radius: 5px;
 }
 
-.delete-cards:active {
-    border: 0;
+.cards-manage-button:hover {
+    border: 2px solid white;
+}
+
+.add-card-modal {
+    color: #004085;
+    background-color: #cce5ff;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+.add-card-modal-layout {
+    margin: 1rem 0.6rem 0 0.6rem;
+    position: relative;
+    padding: .75rem .5rem;
+}
+
+.add-card-modal button{
+    background: #96d3ef;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    color: #004085;
+}
+
+.add-card-modal button:hover {
+    border: 2px solid white;
 }

@@ -45,7 +45,10 @@ function Card(props) {
                             saveCardDataChanges={saveCardDataChanges}
                             restoreCardDataChanges={restoreCardDataChanges}
                             readOnly={props.readOnly}/>
-                <CardBody editable={editable} body={tempState.body} fillData={fillData}/>
+                <CardBody editable={editable} body={tempState.body} fillData={fillData}
+                            saveCardDataChanges={saveCardDataChanges}
+                            restoreCardDataChanges={restoreCardDataChanges}
+                            readOnly={props.readOnly}/>
             </div>
     )
 }
