@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './index.css';
 import { v4 as uuidv4 } from 'uuid';
 import CardList from "./cardList";
@@ -6,8 +6,10 @@ import AddCardModal from "./AddCardModal";
 import CardsPanel from "./CardsPanel";
 
 function Content() {
+    const defaultData = {header: 'Caption', body: 'Text...'};
+
     const [readOnly, setReadOnly] = useState(false);
-    const defaultData = {header: 'Caption', body: 'Text...'}
+
     const [cards, setCards] = useState([
         {id: 1, ...defaultData},
         {id: 2, ...defaultData},
@@ -18,11 +20,24 @@ function Content() {
         {id: 7, ...defaultData},
         {id: 8, ...defaultData}
     ]);
+    const deleteCards = () => {
+        setCards(cards.filter(card => !checkedCardIds.includes(card.id)));
+        setCheckedCardIds([]);
+    }
+    const saveCardData = (cardId, tempState) => {
+        let card = cards.find(card => card.id === cardId);
+        card.header = tempState.header;
+        card.body = tempState.body;
+        setCards(cards);
+    }
+    const addCard = (cardData) => {
+        const generatedId = uuidv4();
+        setCards([...cards, {id: generatedId, ...cardData}]);
+        setFirstTimeLoadedIds([...firstTimeLoadedIds, generatedId]);
+    }
 
     const [checkedCardIds, setCheckedCardIds] = useState([]);
-
     const getCheckedIndex = (item) => checkedCardIds.findIndex(checkedCardId => checkedCardId === item);
-
     const checkedControl = {
         selectCard(cardId) {
             const tempCheckedCardIds = [...checkedCardIds];
@@ -44,25 +59,14 @@ function Content() {
         }
     }
 
-    const [addCardModalVisible, setAddCardModalVisible] = useState(false)
-    const toggleAddCardModal = () => setAddCardModalVisible(prevState => !prevState)
+    const [addCardModalVisible, setAddCardModalVisible] = useState(false);
+    const toggleAddCardModal = () => setAddCardModalVisible(prevState => !prevState);
 
-    function deleteCards() {
-        setCards(cards.filter(card => !checkedCardIds.includes(card.id)));
-        setCheckedCardIds([]);
-    }
-
-    function saveCardData(cardId, tempState) {
-        let card = cards.find(card => card.id === cardId);
-        card.header = tempState.header;
-        card.body = tempState.body;
-        setCards(cards);
-    }
-
-    function addCard(cardData) {
-        const generatedId = uuidv4()
-        setCards([...cards, {id: generatedId, ...cardData}])
-    }
+    const [firstTimeLoadedIds, setFirstTimeLoadedIds] = useState([...cards.map(card => card.id)]);
+    const clearFirstTimeLoadedIds = () => setFirstTimeLoadedIds([]);
+    useEffect(() => {
+        setTimeout(() => setFirstTimeLoadedIds([]), 2000)
+    }, [cards])
 
     return (
         <div className="content content-layout">
@@ -72,12 +76,17 @@ function Content() {
                             setReadOnly={setReadOnly}
                             readOnly={readOnly}
                             isSelected={checkedCardIds.length === 0}/>
-                <AddCardModal addCardDataVisible={addCardModalVisible} addCard={addCard}/>
+                <AddCardModal addCardModalVisible={addCardModalVisible}
+                              addCard={addCard}
+                              toggleAddCardModal={toggleAddCardModal}/>
                 <CardList readOnly={readOnly}
                           cards={cards}
                           checkedControl={checkedControl}
                           checkedCardIds={checkedCardIds}
-                          saveCardData={saveCardData}/>
+                          saveCardData={saveCardData}
+                          firstTimeLoadedIds={firstTimeLoadedIds}
+                          clearFirstTimeLoadedIds={clearFirstTimeLoadedIds}
+                />
             </div>
         </div>
     )
