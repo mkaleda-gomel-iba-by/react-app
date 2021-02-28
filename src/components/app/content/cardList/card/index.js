@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import './index.css'
 import CardHeader from "./cardHeader";
 import CardBody from "./cardBody";
+import WithLoadingDelay from "../WithLoadingDelay";
 
 function Card(props) {
     const cardData = props.cardData;
@@ -37,20 +38,21 @@ function Card(props) {
     };
 
     return (
-            <div className="card card-layout">
-                <CardHeader cardOptions={{checked: props.checked, editable: editable}} header={tempState.header}
-                            selectCard={selectCard}
-                            editMode={editMode}
-                            fillData={fillData}
-                            saveCardDataChanges={saveCardDataChanges}
-                            restoreCardDataChanges={restoreCardDataChanges}
-                            readOnly={props.readOnly}/>
-                <CardBody editable={editable} body={tempState.body} fillData={fillData}
-                            saveCardDataChanges={saveCardDataChanges}
-                            restoreCardDataChanges={restoreCardDataChanges}
-                            readOnly={props.readOnly}/>
-            </div>
+        <div className="card card-layout">
+            <CardHeader cardOptions={{checked: props.checked, editable: editable}}
+                        header={tempState.header}
+                        selectCard={selectCard}
+                        editMode={editMode}
+                        fillData={fillData}
+                        saveCardDataChanges={saveCardDataChanges}
+                        restoreCardDataChanges={restoreCardDataChanges}
+                        readOnly={props.readOnly}/>
+            <CardBody editable={editable} body={tempState.body} fillData={fillData}
+                      saveCardDataChanges={saveCardDataChanges}
+                      restoreCardDataChanges={restoreCardDataChanges}
+                      readOnly={props.readOnly}/>
+        </div>
     )
 }
 
-export default Card
+export default WithLoadingDelay(Card)

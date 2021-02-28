@@ -1,31 +1,13 @@
 import React from 'react';
 import "./index.css"
+import ClipLoader from "react-spinners/ClipLoader"
 
-export default function WithLoadingDelay(Card) {
+export default function WithLoadingDelay(Component) {
     return ({isLoading, ...props}) => {
-        if (isLoading) {
-            return (<div className="card card-layout lds-container" key={props.key}>
-                <div className="lds-default">
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                </div>
-            </div>)
-        }
-        return (<Card cardData={props.cardData}
-                      saveCardData={props.saveCardData}
-                      readOnly={props.readOnly}
-                      checkedControl={props.checkedControl}
-                      checked={props.checkedCardIds.includes(props.cardData.id)}
-                      key={props.key}/>);
+        return isLoading ?
+            (<div className="card card-layout lds-container" key={props.key}>
+                <ClipLoader color={"#96d3ef"} loading={isLoading} size={150}/>
+            </div>) :
+            <Component {...props}/>
     }
 }
