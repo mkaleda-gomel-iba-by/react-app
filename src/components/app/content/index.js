@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './index.css';
 import { v4 as uuidv4 } from 'uuid';
 import CardList from "./cardList";
@@ -33,7 +33,6 @@ function Content() {
     const addCard = (cardData) => {
         const generatedId = uuidv4();
         setCards([...cards, {id: generatedId, ...cardData}]);
-        setFirstTimeLoadedIds([...firstTimeLoadedIds, generatedId]);
     }
 
     const [checkedCardIds, setCheckedCardIds] = useState([]);
@@ -62,12 +61,6 @@ function Content() {
     const [addCardModalVisible, setAddCardModalVisible] = useState(false);
     const toggleAddCardModal = () => setAddCardModalVisible(prevState => !prevState);
 
-    const [firstTimeLoadedIds, setFirstTimeLoadedIds] = useState([...cards.map(card => card.id)]);
-    const clearFirstTimeLoadedIds = () => setFirstTimeLoadedIds([]);
-    useEffect(() => {
-        setTimeout(() => setFirstTimeLoadedIds([]), 2000)
-    }, [cards])
-
     return (
         <div className="content content-layout">
             <div className="container">
@@ -84,8 +77,6 @@ function Content() {
                           checkedControl={checkedControl}
                           checkedCardIds={checkedCardIds}
                           saveCardData={saveCardData}
-                          firstTimeLoadedIds={firstTimeLoadedIds}
-                          clearFirstTimeLoadedIds={clearFirstTimeLoadedIds}
                 />
             </div>
         </div>
