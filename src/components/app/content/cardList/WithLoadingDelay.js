@@ -4,13 +4,13 @@ import ClipLoader from "react-spinners/ClipLoader"
 
 export default function WithLoadingDelay(Component) {
     function HOC(props) {
-        const [isLoading, setIsLoading] = useState(false)
-        //
-        // useEffect(() => {
-        //     setTimeout(() => {
-        //         setIsLoading(false)
-        //     }, 2000)
-        // }, [])
+        const [isLoading, setIsLoading] = useState(true)
+
+        useEffect(() => {
+            setTimeout(() => {
+                setIsLoading(false)
+            }, 2000)
+        }, [])
 
         return isLoading ?
             (<div className="card card-layout lds-container" key={props.key}>

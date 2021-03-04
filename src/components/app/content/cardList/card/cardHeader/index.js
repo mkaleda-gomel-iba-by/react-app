@@ -8,7 +8,6 @@ function CardHeader(props) {
         <i className="fa fa-close" onClick={() => props.restoreCardDataChanges()}/>
     </Fragment>
 
-    console.log(props.readOnly)
     const viewPanel = <Fragment>
         {props.readOnly || <i className="fa fa-pencil" aria-hidden="true" onClick={() => props.editMode()}/>}
         <input type="checkbox" checked={props.cardOptions.checked} onChange={() => props.selectCard()}/>
