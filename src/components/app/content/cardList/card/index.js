@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import './index.css'
 import CardHeader from "./cardHeader";
 import CardBody from "./cardBody";
+import WithLoadingDelay from "../../WithLoadingDelay";
 
 function Card(props) {
     const cardData = props.cardData;
@@ -53,4 +54,4 @@ function Card(props) {
     )
 }
 
-export default Card
+export default WithLoadingDelay(Card)

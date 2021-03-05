@@ -72,7 +72,7 @@ function Content() {
                             setReadOnly={setReadOnly}
                             readOnly={readOnly}
                             isSelected={checkedCardIds.length === 0}/>
-                <AddCardModal addCardDataVisible={addCardModalVisible} addCard={addCard}/>
+                <AddCardModal addCardModalVisible={addCardModalVisible} addCard={addCard}/>
                 <CardList readOnly={readOnly}
                           cards={cards}
                           checkedControl={checkedControl}
