@@ -4,9 +4,10 @@ export default function AddCardModal(props) {
     const [newCardData, setNewCardData] = useState({header: '', body: ''})
     const saveCard = () => {
         props.addCard(newCardData);
-        setNewCardData({header: '', body: ''})
+        setNewCardData({header: '', body: ''});
+        props.toggleAddCardModal();
     }
-    if (!props.addCardDataVisible) return null
+    if (!props.addCardModalVisible) return null
     return (
         <div className="add-card-modal add-card-modal-layout">
             <h5>Fill card data</h5>
