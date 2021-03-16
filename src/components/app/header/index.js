@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './index.css'
-import {useCards} from "../CardsContext";
+import {CardsContext} from "../CardsContext";
 
 function Header() {
-    const {cards} = useCards();
+    const {cards} = useContext(CardsContext);
     return (
         <div className="header header-layout">
             <div className="container">

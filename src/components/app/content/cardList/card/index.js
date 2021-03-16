@@ -1,16 +1,16 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import './index.css'
 import CardHeader from "./cardHeader";
 import CardBody from "./cardBody";
 import WithLoadingDelay from "../WithLoadingDelay";
 import PropTypes from 'prop-types'
-import {useCards} from "../../../CardsContext";
+import {CardsContext} from "../../../CardsContext";
 
 function Card(props) {
     const cardData = props.cardData;
     const cardId = cardData.id;
 
-    const {saveCardData, checkedControl} = useCards()
+    const {saveCardData, checkedControl} = useContext(CardsContext)
 
     const [tempState, setTempState] = useState({...cardData});
     const [editable, setEditable] = useState(false);

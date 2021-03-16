@@ -1,17 +1,21 @@
 import React, {useState} from "react";
 import {v4 as uuidv4} from "uuid";
 
-const CardsContext = React.createContext()
+export const CardsContext = React.createContext(null)
 
-export default CardsContext
+function CardsProvider({children}) {
+    const defaultData = {header: 'Caption', body: 'Text...'};
 
-function useCards() {
-    const context = React.useContext(CardsContext)
-    if (!context) {
-        throw new Error(`useCards must be used within a useCardsProvider`)
-    }
-
-    const [cards, setCards] = context
+    const [cards, setCards] = useState([
+        {id: 1, ...defaultData},
+        {id: 2, ...defaultData},
+        {id: 3, ...defaultData},
+        {id: 4, ...defaultData},
+        {id: 5, ...defaultData},
+        {id: 6, ...defaultData},
+        {id: 7, ...defaultData},
+        {id: 8, ...defaultData}
+    ]);
     const [checkedCardIds, setCheckedCardIds] = useState([]);
     const getCheckedIndex = (item) => checkedCardIds.findIndex(checkedCardId => checkedCardId === item);
     const checkedControl = {
@@ -51,31 +55,16 @@ function useCards() {
         setCheckedCardIds([generatedId]);
     }
 
-    return {
+    const store = {
         cards,
+        checkedCardIds,
+        checkedControl,
         deleteCards,
         saveCardData,
-        addCard,
-        checkedCardIds,
-        checkedControl
+        addCard
     }
+
+    return <CardsContext.Provider value={store}>{children}</CardsContext.Provider>
 }
 
-function CardsProvider() {
-    const defaultData = {header: 'Caption', body: 'Text...'};
-
-    const [cards, setCards] = useState([
-        {id: 1, ...defaultData},
-        {id: 2, ...defaultData},
-        {id: 3, ...defaultData},
-        {id: 4, ...defaultData},
-        {id: 5, ...defaultData},
-        {id: 6, ...defaultData},
-        {id: 7, ...defaultData},
-        {id: 8, ...defaultData}
-    ]);
-    const value = React.useMemo(() => [cards, setCards], [cards])
-    return <CardsContext.Provider value={value} />
-}
-
-export {CardsProvider, useCards}
+export default CardsProvider

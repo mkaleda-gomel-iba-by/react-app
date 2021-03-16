@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useContext} from "react";
 import Checkbox from "./Checkbox";
-import {useCards} from "../CardsContext";
+import {CardsContext} from "../CardsContext";
 
 export default function CardsPanel(props) {
-    const {deleteCards, checkedCardIds} = useCards()
+    const {checkedCardIds, deleteCards} = useContext(CardsContext)
     return (
         <div className="cards-panel cards-panel-layout">
             <Checkbox setChecked={props.setReadOnly} checked={props.readOnly} label={'Readonly'}/>
