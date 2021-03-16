@@ -1,16 +1,14 @@
 import React from 'react';
 import "./index.css"
 import Card from "./card";
+import {useCards} from "../../CardsContext";
 
 function CardList(props) {
+    const {cards, checkedCardIds} = useCards()
     return (
         <div className="cards">
-            {props.cards.map(card => <Card cardData={card}
-                                           saveCardData={props.saveCardData}
-                                           readOnly={props.readOnly}
-                                           checkedControl={props.checkedControl}
-                                           checked={props.checkedCardIds.includes(card.id)}
-                                           key={card.id}/>)}
+            {cards.map((card, index) => <Card cardData={card} readOnly={props.readOnly}
+                                              checked={checkedCardIds.includes(card.id)} key={index}/>)}
         </div>
     )
 }

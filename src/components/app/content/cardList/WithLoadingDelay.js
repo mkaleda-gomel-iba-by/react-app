@@ -13,7 +13,7 @@ export default function WithLoadingDelay(Component) {
         }, [])
 
         return isLoading ?
-            (<div className="card card-layout lds-container" key={props.key}>
+            (<div className="card card-layout lds-container">
                 <ClipLoader color={"#96d3ef"} loading={isLoading} size={150}/>
             </div>) :
             <Component {...props}/>

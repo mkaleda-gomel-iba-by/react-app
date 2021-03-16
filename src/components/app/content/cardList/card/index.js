@@ -3,10 +3,14 @@ import './index.css'
 import CardHeader from "./cardHeader";
 import CardBody from "./cardBody";
 import WithLoadingDelay from "../WithLoadingDelay";
+import PropTypes from 'prop-types'
+import {useCards} from "../../../CardsContext";
 
 function Card(props) {
     const cardData = props.cardData;
     const cardId = cardData.id;
+
+    const {saveCardData, checkedControl} = useCards()
 
     const [tempState, setTempState] = useState({...cardData});
     const [editable, setEditable] = useState(false);
@@ -15,7 +19,7 @@ function Card(props) {
 
     const saveCardDataChanges = () => {
         cancelEditing();
-        props.saveCardData(cardId, tempState);
+        saveCardData(cardId, tempState);
     };
     const restoreCardDataChanges = useCallback(() => {
         cancelEditing();
@@ -30,11 +34,11 @@ function Card(props) {
 
     const selectCard = () => {
         setEditable(false);
-        props.checkedControl.selectCard(cardId);
+        checkedControl.selectCard(cardId);
     };
     const editMode = () => {
         setEditable(true);
-        props.checkedControl.removeCheckedCard(cardId);
+        checkedControl.removeCheckedCard(cardId);
     };
 
     return (
@@ -53,6 +57,14 @@ function Card(props) {
                       readOnly={props.readOnly}/>
         </div>
     )
+}
+
+Card.propTypes = {
+    cardData: PropTypes.object.isRequired,
+    saveCardData: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool.isRequired,
+    checkedControl: PropTypes.objectOf(PropTypes.func).isRequired,
+    checked: PropTypes.bool.isRequired,
 }
 
 export default WithLoadingDelay(Card)

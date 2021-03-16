@@ -16,3 +16,14 @@
 .header-title {
     color: white;
 }
+
+.header-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .6rem;
+}
+
+.header-data h6 {
+    color: white;
+}
