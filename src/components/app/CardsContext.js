@@ -55,13 +55,16 @@ function CardsProvider({children}) {
         setCheckedCardIds([generatedId]);
     }
 
+    const getCardsCount = () => cards.length
+
     const store = {
         cards,
         checkedCardIds,
         checkedControl,
         deleteCards,
         saveCardData,
-        addCard
+        addCard,
+        getCardsCount
     }
 
     return <CardsContext.Provider value={store}>{children}</CardsContext.Provider>
