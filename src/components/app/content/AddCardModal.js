@@ -1,9 +1,11 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
+import {CardsContext} from "../CardsContext";
 
 export default function AddCardModal(props) {
     const [newCardData, setNewCardData] = useState({header: '', body: ''})
+    const {addCard} = useContext(CardsContext)
     const saveCard = () => {
-        props.addCard(newCardData);
+        addCard(newCardData);
         setNewCardData({header: '', body: ''});
         props.toggleAddCardModal();
     }
