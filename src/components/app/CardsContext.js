@@ -1,21 +1,19 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {v4 as uuidv4} from "uuid";
+import axios from "axios";
 
 export const CardsContext = React.createContext(null)
 
 function CardsProvider({children}) {
-    const defaultData = {header: 'Caption', body: 'Text...'};
+    const [cards, setCards] = useState([]);
+    useEffect(() => {
+        axios('https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json')
+            .then(response => setCards(response.data.slice(0, 15).map(obj => {
+                return {id: uuidv4(), header: obj['Name'], body: obj['About']}
+            })))
+            .catch(reject => console.log(`Something went wrong: ${reject}`))
+    }, [])
 
-    const [cards, setCards] = useState([
-        {id: 1, ...defaultData},
-        {id: 2, ...defaultData},
-        {id: 3, ...defaultData},
-        {id: 4, ...defaultData},
-        {id: 5, ...defaultData},
-        {id: 6, ...defaultData},
-        {id: 7, ...defaultData},
-        {id: 8, ...defaultData}
-    ]);
     const [checkedCardIds, setCheckedCardIds] = useState([]);
     const getCheckedIndex = (item) => checkedCardIds.findIndex(checkedCardId => checkedCardId === item);
     const checkedControl = {

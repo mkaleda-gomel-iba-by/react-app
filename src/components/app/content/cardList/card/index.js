@@ -61,9 +61,7 @@ function Card(props) {
 
 Card.propTypes = {
     cardData: PropTypes.object.isRequired,
-    saveCardData: PropTypes.func.isRequired,
     readOnly: PropTypes.bool.isRequired,
-    checkedControl: PropTypes.objectOf(PropTypes.func).isRequired,
     checked: PropTypes.bool.isRequired,
 }
 
