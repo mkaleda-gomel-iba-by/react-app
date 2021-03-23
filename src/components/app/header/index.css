@@ -1,29 +1,16 @@
-.header {
-    display: flex;
-    align-items: center;
-    background: #96d3ef;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
+.navbar {
+   background-color: #96d3ef!important;
 }
 
-.header-layout {
-    width: 100%;
-    height: 70px;
+.nav-link {
+    color: white!important;
 }
 
-.header-title {
-    color: white;
+.navbar-brand {
+    color: white!important;
 }
 
-.header-data {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: .6rem;
-}
 
-.header-data h6 {
-    color: white;
+.navbar-text {
+    color: white!important;
 }
