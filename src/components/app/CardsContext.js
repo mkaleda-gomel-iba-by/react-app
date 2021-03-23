@@ -1,23 +1,32 @@
-import React, {useState} from "react";
-import {v4 as uuidv4} from "uuid";
+import React, { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
-export const CardsContext = React.createContext(null)
+export const CardsContext = React.createContext(null);
 
-function CardsProvider({children}) {
-    const defaultData = {header: 'Caption', body: 'Text...'};
+function CardsProvider({ children }) {
+    const [cards, setCards] = useState([]);
+    useEffect(() => {
+        axios(
+            'https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json'
+        )
+            .then((response) =>
+                setCards(
+                    response.data.slice(0, 15).map((obj) => {
+                        return {
+                            id: uuidv4(),
+                            header: obj['Name'],
+                            body: obj['About'],
+                        };
+                    })
+                )
+            )
+            .catch((reject) => console.log(`Something went wrong: ${reject}`));
+    }, []);
 
-    const [cards, setCards] = useState([
-        {id: 1, ...defaultData},
-        {id: 2, ...defaultData},
-        {id: 3, ...defaultData},
-        {id: 4, ...defaultData},
-        {id: 5, ...defaultData},
-        {id: 6, ...defaultData},
-        {id: 7, ...defaultData},
-        {id: 8, ...defaultData}
-    ]);
     const [checkedCardIds, setCheckedCardIds] = useState([]);
-    const getCheckedIndex = (item) => checkedCardIds.findIndex(checkedCardId => checkedCardId === item);
+    const getCheckedIndex = (item) =>
+        checkedCardIds.findIndex((checkedCardId) => checkedCardId === item);
     const checkedControl = {
         selectCard(cardId) {
             const tempCheckedCardIds = [...checkedCardIds];
@@ -36,26 +45,26 @@ function CardsProvider({children}) {
                 tempCheckedCardIds.splice(index, 1);
                 setCheckedCardIds(tempCheckedCardIds);
             }
-        }
-    }
+        },
+    };
 
     const deleteCards = () => {
-        setCards(cards.filter(card => !checkedCardIds.includes(card.id)));
+        setCards(cards.filter((card) => !checkedCardIds.includes(card.id)));
         setCheckedCardIds([]);
-    }
+    };
     const saveCardData = (cardId, tempState) => {
-        let card = cards.find(card => card.id === cardId);
+        let card = cards.find((card) => card.id === cardId);
         card.header = tempState.header;
         card.body = tempState.body;
         setCards(cards);
-    }
+    };
     const addCard = (cardData) => {
         const generatedId = uuidv4();
-        setCards([...cards, {id: generatedId, ...cardData}]);
+        setCards([...cards, { id: generatedId, ...cardData }]);
         setCheckedCardIds([generatedId]);
-    }
+    };
 
-    const getCardsCount = () => cards.length
+    const getCardsCount = () => cards.length;
 
     const store = {
         cards,
@@ -64,10 +73,10 @@ function CardsProvider({children}) {
         deleteCards,
         saveCardData,
         addCard,
-        getCardsCount
-    }
+        getCardsCount,
+    };
 
-    return <CardsContext.Provider value={store}>{children}</CardsContext.Provider>
+    return <CardsContext.Provider value={store}>{children}</CardsContext.Provider>;
 }
 
 export default CardsProvider
