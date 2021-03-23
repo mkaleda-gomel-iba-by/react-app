@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './header';
 import Content from './content';
-import CardsProvider from "./CardsContext";
+import CardsProvider from './CardsContext';
 
 function App() {
     return (
