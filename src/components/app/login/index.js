@@ -42,14 +42,14 @@ function LoginPage() {
                                         className="form-control"
                                     />
                                 </div>
-                                <div className="form-group">
-                                    <input
-                                        type="submit"
-                                        name="submit"
-                                        className="btn btn-info btn-md"
-                                        value="Sign in"
-                                    />
-                                </div>
+                                {/*<div className="form-group">*/}
+                                {/*    <input*/}
+                                {/*        type="submit"*/}
+                                {/*        name="submit"*/}
+                                {/*        className="btn btn-info btn-md"*/}
+                                {/*        value="Sign in"*/}
+                                {/*    />*/}
+                                {/*</div>*/}
                             </form>
                         </div>
                     </div>
