@@ -12,8 +12,8 @@ function Content() {
         setAddCardModalVisible((prevState) => !prevState);
 
     return (
-        <div className="content content-layout">
-            <div className="container">
+        <div className="container-fluid">
+            <div className="content content-layout">
                 <CardsPanel
                     toggleAddCardModal={toggleAddCardModal}
                     setReadOnly={setReadOnly}
