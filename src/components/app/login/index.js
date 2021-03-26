@@ -8,11 +8,11 @@ function LoginPage() {
     const [isPasswordValid, setIsPasswordValid] = useState(false);
 
     const validateUsername = (value) => {
-        setIsUsernameValid(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value));
+        setIsUsernameValid(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/.test(value));
     };
 
     const passwordValidation = (value) =>
-        setIsPasswordValid(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/.test(value));
+        setIsPasswordValid(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value));
 
     useEffect(() => setIsValid(isUsernameValid && isPasswordValid), [
         isUsernameValid,
