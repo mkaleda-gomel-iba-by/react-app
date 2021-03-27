@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.css';
+import Input from './input';
 
 function LoginPage() {
+    const [isValid, setIsValid] = useState(false);
+    const [isUsernameValid, setIsUsernameValid] = useState(false);
+    const [isPasswordValid, setIsPasswordValid] = useState(false);
+
+    const validateUsername = (value) => {
+        setIsUsernameValid(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/.test(value));
+    };
+
+    const passwordValidation = (value) =>
+        setIsPasswordValid(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value));
+
+    useEffect(() => setIsValid(isUsernameValid && isPasswordValid), [
+        isUsernameValid,
+        isPasswordValid,
+    ]);
+
     return (
         <div id="login">
             <div className="container">
@@ -17,39 +34,25 @@ function LoginPage() {
                                 action=""
                                 method="post"
                             >
-                                <h3 className="text-center text-info">Login</h3>
+                                <h3 className="text-center text-info">Sign in</h3>
+                                <Input
+                                    id={'username'}
+                                    labelText={'Username:'}
+                                    validationFunc={validateUsername}
+                                />
+                                <Input
+                                    id={'password'}
+                                    labelText={'Password:'}
+                                    validationFunc={passwordValidation}
+                                />
                                 <div className="form-group">
-                                    <label htmlFor="username" className="text-info">
-                                        Username:
-                                    </label>
-                                    <br />
                                     <input
-                                        type="text"
-                                        name="username"
-                                        id="username"
-                                        className="form-control"
+                                        type="submit"
+                                        className="btn btn-info btn-md"
+                                        value="Sign in"
+                                        disabled={!isValid}
                                     />
                                 </div>
-                                <div className="form-group">
-                                    <label htmlFor="password" className="text-info">
-                                        Password:
-                                    </label>
-                                    <br />
-                                    <input
-                                        type="text"
-                                        name="password"
-                                        id="password"
-                                        className="form-control"
-                                    />
-                                </div>
-                                {/*<div className="form-group">*/}
-                                {/*    <input*/}
-                                {/*        type="submit"*/}
-                                {/*        name="submit"*/}
-                                {/*        className="btn btn-info btn-md"*/}
-                                {/*        value="Sign in"*/}
-                                {/*    />*/}
-                                {/*</div>*/}
                             </form>
                         </div>
                     </div>
