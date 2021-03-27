@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
+import React  from 'react';
 import './index.css';
-import { CardsContext } from '../CardsContext';
 import { NavLink } from 'react-router-dom';
+import {connect} from "react-redux";
 
-function Header() {
-    const { getCardsCount } = useContext(CardsContext);
+function Header({cardsCount}) {
     return (
         <nav className="navbar fixed-top navbar-expand-sm justify-content-between">
 
@@ -26,7 +25,7 @@ function Header() {
                         className="badge badge-pill badge-primary"
                         style={{ float: 'right' }}
                     >
-                        {getCardsCount()}
+                        {cardsCount}
                     </span>
                     <span>Cards count</span>
                 </span>
@@ -43,4 +42,8 @@ function Header() {
     );
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+    return {cardsCount: state.cards.cards.length};
+};
+
+export default connect(mapStateToProps)(Header);

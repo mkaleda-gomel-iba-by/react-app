@@ -1,17 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './index.css';
 import Card from './card';
-import { CardsContext } from '../../CardsContext';
+import { connect } from 'react-redux';
 
 function CardList(props) {
-    const { cards, checkedCardIds } = useContext(CardsContext);
     return (
         <div className="cards">
-            {cards.map((card, index) => (
+            {props.cards.map((card, index) => (
                 <Card
                     cardData={card}
                     readOnly={props.readOnly}
-                    checked={checkedCardIds.includes(card.id)}
+                    checked={props.checkedCardIds.includes(card.id)}
                     key={index}
                 />
             ))}
@@ -19,4 +18,11 @@ function CardList(props) {
     );
 }
 
-export default CardList;
+const mapStateToProps = (state) => {
+    return {
+        cards: state.cards.cards,
+        checkedCardIds: state.cards.checkedCardIds,
+    };
+};
+
+export default connect(mapStateToProps)(CardList);

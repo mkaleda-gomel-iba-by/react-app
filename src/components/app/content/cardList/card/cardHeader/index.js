@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import classNames from 'classnames';
 import './index.css';
+import { connect } from 'react-redux';
+import { selectCard } from '../../../../../../redux/actions';
 
 function CardHeader(props) {
     const editPanel = (
@@ -18,7 +20,7 @@ function CardHeader(props) {
 
     const viewPanel = (
         <Fragment>
-            {props.readOnly || (
+            {props.readOnly || props.cardOptions.checked || (
                 <i
                     className="fa fa-pencil"
                     aria-hidden="true"
@@ -28,7 +30,7 @@ function CardHeader(props) {
             <input
                 type="checkbox"
                 checked={props.cardOptions.checked}
-                onChange={() => props.selectCard()}
+                onChange={() => props.selectCard(props.card.id)}
             />
         </Fragment>
     );
@@ -44,7 +46,7 @@ function CardHeader(props) {
             <input
                 className="card-header-title card-header-title-layout"
                 type="text"
-                value={props.header}
+                value={props.card.header}
                 disabled={!props.cardOptions.editable}
                 onInput={(event) => props.fillData({ header: event.target.value })}
             />
@@ -53,4 +55,4 @@ function CardHeader(props) {
     );
 }
 
-export default CardHeader
+export default connect(null, {selectCard})(CardHeader)
