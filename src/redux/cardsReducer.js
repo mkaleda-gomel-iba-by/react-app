@@ -1,28 +1,9 @@
-import { CREATE_CARD, REMOVE_CARDS, SELECT_CARD, UPDATE_CARD } from './types';
-import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
-
-async function fetchCards() {
-    const response = await axios(
-        'https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json'
-    );
-    return await response.data.slice(0, 15).map((obj) => {
-        return {
-            id: uuidv4(),
-            header: obj['Name'],
-            body: obj['About'],
-        };
-    });
-}
+import {CREATE_CARD, ADD_FETCHED_CARDS, REMOVE_CARDS, SELECT_CARD, UPDATE_CARD} from './types';
 
 const initialState = {
-    checkedCardIds: [],
+    cards: [],
+    checkedCardIds: []
 };
-initialState.cards = fetchCards();
-initialState.cards = [
-    { id: 1, header: 'sdfas', body: 'asdfas' },
-    { id: 2, header: 'sdfas', body: 'asdfas' },
-];
 
 const removeCards = (state) => {
     const filteredCards = state.cards.filter(
@@ -60,6 +41,8 @@ export const cardsReducer = (state = initialState, action) => {
             return updateCard(state, action.payload);
         case SELECT_CARD:
             return cardsSelection(state, action.payload);
+        case ADD_FETCHED_CARDS:
+            return {cards: action.payload, checkedCardIds: []};
         default:
             return state;
     }

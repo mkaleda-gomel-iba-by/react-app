@@ -1,0 +1,43 @@
+.single-card {
+    display: flex;
+    flex-direction: column;
+    border: none;
+    width: 100%;
+    margin-top: 90px;
+}
+
+.single-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #96d3ef;
+    height: 90px;
+    padding: 1rem;
+    border-radius: 10px 10px 0 0;
+}
+
+.single-card-header input {
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
+    color: white;
+    background-color: transparent;
+    outline: none;
+    font-size: 40px;
+}
+
+.single-card-body {
+    height: 410px;
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+    background: white;
+    padding: 1rem;
+}
+
+.single-card-body textarea {
+    border: 0;
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+    resize: none;
+}
