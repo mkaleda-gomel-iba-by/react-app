@@ -6,7 +6,7 @@ import WithLoadingDelay from '../WithLoadingDelay';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateCard } from '../../../../../redux/actions';
-import {Redirect} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function Card(props) {
     const cardData = props.cardData;
@@ -33,10 +33,12 @@ function Card(props) {
 
     const editMode = () => setEditable(true);
 
-    const cardHandler = () => editable || <Redirect to={`/login`}/>
+    let history = useHistory();
+    const cardHandler = () =>
+        editable || history.push({ pathname: `/card/:${cardData.id}`, cardData });
 
     return (
-        <div className="card card-layout" onDoubleClick={() => cardHandler()}>
+        <div className="card card-layout" onDoubleClick={cardHandler}>
             <CardHeader
                 cardOptions={{ checked: props.checked, editable: editable }}
                 card={tempState}

@@ -2,18 +2,17 @@ import React, { useState } from 'react';
 import './index.css';
 import { updateCard } from '../../../../redux/actions';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-function Card({ updateCard }) {
-    const [tempState, setTempState] = useState({
-        id: 1,
-        header: 'Header',
-        body: 'Body',
-    });
+function Card(props) {
+    const [tempState, setTempState] = useState(props.location.cardData);
+    const history = useHistory();
 
     const fillData = (data) => setTempState({ ...tempState, ...data });
 
     const saveCardHandler = () => {
-        updateCard(tempState);
+        props.updateCard(tempState);
+        history.push('/');
     };
 
     return (
@@ -23,7 +22,9 @@ function Card({ updateCard }) {
                     <input
                         type="text"
                         value={tempState.header}
-                        onChange={(event) => fillData({ header: event.target.value })}
+                        onChange={(event) =>
+                            fillData({ header: event.target.value })
+                        }
                     />
                     <button
                         className="btn btn-primary"
