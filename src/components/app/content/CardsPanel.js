@@ -1,9 +1,11 @@
 import React  from 'react';
 import Checkbox from './Checkbox';
 import { removeCards } from '../../../redux/actions';
-import { connect } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 function CardsPanel(props) {
+    const dispatch = useDispatch();
+    const checkedCardIds = useSelector(state => state.cards.checkedCardIds);
     return (
         <div className="cards-panel cards-panel-layout">
             <Checkbox
@@ -12,10 +14,10 @@ function CardsPanel(props) {
                 label={'Readonly'}
             />
             <div className="buttons-wrapper">
-                {props.checkedCardIds.length === 0 || (
+                {checkedCardIds.length === 0 || (
                     <button
                         className="cards-manage-button"
-                        onClick={() => props.removeCards(props.checkedCardIds)}
+                        onClick={() => dispatch(removeCards(props.checkedCardIds))}
                     >
                         Delete cards
                     </button>
@@ -32,10 +34,4 @@ function CardsPanel(props) {
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        checkedCardIds: state.cards.checkedCardIds,
-    };
-};
-
-export default connect(mapStateToProps, { removeCards })(CardsPanel);
+export default CardsPanel;

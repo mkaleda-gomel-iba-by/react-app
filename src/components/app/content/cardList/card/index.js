@@ -4,11 +4,12 @@ import CardHeader from './cardHeader';
 import CardBody from './cardBody';
 import WithLoadingDelay from '../WithLoadingDelay';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { updateCard } from '../../../../../redux/actions';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { updateCard } from '../../../../../redux/actions';
 
 function Card(props) {
+    const dispatch = useDispatch();
     const cardData = props.cardData;
 
     const [tempState, setTempState] = useState({ ...cardData });
@@ -18,7 +19,7 @@ function Card(props) {
 
     const saveCardDataChanges = () => {
         cancelEditing();
-        props.updateCard(tempState);
+        dispatch(updateCard(tempState));
     };
     const restoreCardDataChanges = useCallback(() => {
         cancelEditing();
@@ -33,9 +34,17 @@ function Card(props) {
 
     const editMode = () => setEditable(true);
 
-    let history = useHistory();
-    const cardHandler = () =>
-        editable || history.push({ pathname: `/card/:${cardData.id}`, cardData });
+    const history = useHistory();
+    const cardHandler = () => {
+        const path = `/card/:${cardData.id}`;
+        editable ||
+            history.location.pathname === path ||
+            history.push({
+                pathname: path,
+                cardData,
+                readOnly: props.readOnly,
+            });
+    };
 
     return (
         <div className="card card-layout" onDoubleClick={cardHandler}>
@@ -66,6 +75,4 @@ Card.propTypes = {
     checked: PropTypes.bool.isRequired,
 };
 
-const mapDispatchToProps = { updateCard };
-
-export default connect(null, mapDispatchToProps)(WithLoadingDelay(Card));
+export default WithLoadingDelay(Card);

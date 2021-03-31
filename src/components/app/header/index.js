@@ -1,9 +1,10 @@
 import React  from 'react';
 import './index.css';
 import { NavLink } from 'react-router-dom';
-import {connect} from "react-redux";
+import {useSelector} from "react-redux";
 
-function Header({cardsCount}) {
+function Header() {
+    const cardsCount = useSelector(state => state.cards.cards.length)
     return (
         <nav className="navbar fixed-top navbar-expand-sm justify-content-between">
 
@@ -42,8 +43,4 @@ function Header({cardsCount}) {
     );
 }
 
-const mapStateToProps = (state) => {
-    return {cardsCount: state.cards.cards.length};
-};
-
-export default connect(mapStateToProps)(Header);
+export default Header;

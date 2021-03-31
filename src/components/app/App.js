@@ -4,13 +4,15 @@ import Header from './header';
 import Content from './content';
 import LoginPage from './login';
 import NotFound from './not_found';
-import Card from './content/card';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { connect } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {addFetchedCards} from "../../redux/actions";
+import SingleCard from "./content/singleCard";
 
-function App({ addFetchedCards }) {
+function App() {
+    const dispatch = useDispatch()
+
     useEffect(() => {
         async function fetchCards() {
             const response = await axios(
@@ -25,8 +27,8 @@ function App({ addFetchedCards }) {
             });
         }
 
-        fetchCards().then((cards) => addFetchedCards(cards));
-    }, [addFetchedCards]);
+        fetchCards().then((cards) => dispatch(addFetchedCards(cards)));
+    }, [dispatch]);
 
     return (
         <BrowserRouter>
@@ -35,11 +37,11 @@ function App({ addFetchedCards }) {
             <Switch>
                 <Route path={'/'} exact component={Content} />
                 <Route path={'/login'} exact component={LoginPage} />
-                <Route path="/card/:id" component={Card} />
+                <Route path="/card/:id" component={SingleCard} />
                 <Route component={NotFound} />
             </Switch>
         </BrowserRouter>
     );
 }
 
-export default connect(null, { addFetchedCards })(App);
+export default App;

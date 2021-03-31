@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import classNames from 'classnames';
 import './index.css';
-import { connect } from 'react-redux';
 import { selectCard } from '../../../../../../redux/actions';
+import {useDispatch} from "react-redux";
 
 function CardHeader(props) {
+    const dispatch = useDispatch();
     const editPanel = (
         <Fragment>
             <i
@@ -30,7 +31,7 @@ function CardHeader(props) {
             <input
                 type="checkbox"
                 checked={props.cardOptions.checked}
-                onChange={() => props.selectCard(props.card.id)}
+                onChange={() => dispatch(selectCard(props.card.id))}
             />
         </Fragment>
     );
@@ -55,4 +56,4 @@ function CardHeader(props) {
     );
 }
 
-export default connect(null, {selectCard})(CardHeader)
+export default CardHeader
