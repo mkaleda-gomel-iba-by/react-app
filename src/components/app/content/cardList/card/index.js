@@ -37,8 +37,7 @@ function Card(props) {
     const history = useHistory();
     const cardHandler = () => {
         const path = `/card/:${cardData.id}`;
-        editable ||
-            history.location.pathname === path ||
+        editable || props.isSingleCard ||
             history.push({
                 pathname: path,
                 cardData,

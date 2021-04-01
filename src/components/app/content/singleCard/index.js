@@ -1,8 +1,8 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import './index.css';
 import Card from '../cardList/card';
 import { useSelector } from 'react-redux';
-import {useHistory} from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 function SingleCard({ location }) {
     const history = useHistory();
@@ -12,12 +12,12 @@ function SingleCard({ location }) {
         );
         return (
             <div className="card-wrapper">
-                <Card {...location} checked={isChecked} />
+                <Card {...location} checked={isChecked} isSingleCard={true}/>
             </div>
         );
     } catch (TypeError) {
-        history.push('/not-found')
-        return <Fragment/>
+        history.push('/not-found');
+        return <Fragment />;
     }
 }
 
