@@ -3,12 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/app/App';
 import * as serviceWorker from './serviceWorker';
-import {createStore} from 'redux';
+import {applyMiddleware, compose, createStore} from 'redux';
 import {mainReducer} from './redux/mainReducer';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from "redux-devtools-extension";
+import thunk from "redux-thunk";
 
-const store = createStore(mainReducer, composeWithDevTools());
+const logger = () => next => action => {
+    console.group(action.type);
+    console.info('Params', action.payload);
+    console.groupEnd();
+    return next(action);
+}
+
+const store = createStore(mainReducer, compose(applyMiddleware(thunk, logger), composeWithDevTools()));
 
 ReactDOM.render(
     <React.StrictMode>
