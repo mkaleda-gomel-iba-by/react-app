@@ -9,7 +9,7 @@ export default function WithLoadingDelay(Component) {
         useEffect(() => {
             setTimeout(() => {
                 setIsLoading(false);
-            }, 2000);
+            }, 500);
         }, []);
 
         return isLoading ? (

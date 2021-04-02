@@ -1,11 +1,12 @@
-import React, { useContext, useState } from 'react';
-import { CardsContext } from '../CardsContext';
+import React, { useState } from 'react';
+import {useDispatch} from "react-redux";
+import {createCard} from "../../../redux/actions";
 
-export default function AddCardModal(props) {
+function AddCardModal(props) {
+    const dispatch = useDispatch();
     const [newCardData, setNewCardData] = useState({ header: '', body: '' });
-    const { addCard } = useContext(CardsContext);
     const saveCard = () => {
-        addCard(newCardData);
+        dispatch(createCard(newCardData));
         setNewCardData({ header: '', body: '' });
         props.toggleAddCardModal();
     };
@@ -33,3 +34,5 @@ export default function AddCardModal(props) {
         </div>
     );
 }
+
+export default AddCardModal;

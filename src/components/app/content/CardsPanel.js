@@ -1,9 +1,11 @@
-import React, { useContext } from 'react';
+import React  from 'react';
 import Checkbox from './Checkbox';
-import { CardsContext } from '../CardsContext';
+import { removeCards } from '../../../redux/actions';
+import {useDispatch, useSelector} from 'react-redux';
 
-export default function CardsPanel(props) {
-    const { checkedCardIds, deleteCards } = useContext(CardsContext);
+function CardsPanel(props) {
+    const dispatch = useDispatch();
+    const checkedCardIds = useSelector(state => state.cards.checkedCardIds);
     return (
         <div className="cards-panel cards-panel-layout">
             <Checkbox
@@ -15,7 +17,7 @@ export default function CardsPanel(props) {
                 {checkedCardIds.length === 0 || (
                     <button
                         className="cards-manage-button"
-                        onClick={() => deleteCards()}
+                        onClick={() => dispatch(removeCards(props.checkedCardIds))}
                     >
                         Delete cards
                     </button>
@@ -31,3 +33,5 @@ export default function CardsPanel(props) {
         </div>
     );
 }
+
+export default CardsPanel;

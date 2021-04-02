@@ -1,16 +1,16 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './index.css';
 import CardHeader from './cardHeader';
 import CardBody from './cardBody';
 import WithLoadingDelay from '../WithLoadingDelay';
 import PropTypes from 'prop-types';
-import { CardsContext } from '../../../CardsContext';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { updateCard } from '../../../../../redux/actions';
 
 function Card(props) {
+    const dispatch = useDispatch();
     const cardData = props.cardData;
-    const cardId = cardData.id;
-
-    const { saveCardData, checkedControl } = useContext(CardsContext);
 
     const [tempState, setTempState] = useState({ ...cardData });
     const [editable, setEditable] = useState(false);
@@ -19,7 +19,7 @@ function Card(props) {
 
     const saveCardDataChanges = () => {
         cancelEditing();
-        saveCardData(cardId, tempState);
+        dispatch(updateCard(tempState));
     };
     const restoreCardDataChanges = useCallback(() => {
         cancelEditing();
@@ -32,21 +32,24 @@ function Card(props) {
 
     const fillData = (data) => setTempState({ ...tempState, ...data });
 
-    const selectCard = () => {
-        setEditable(false);
-        checkedControl.selectCard(cardId);
-    };
-    const editMode = () => {
-        setEditable(true);
-        checkedControl.removeCheckedCard(cardId);
+    const editMode = () => setEditable(true);
+
+    const history = useHistory();
+    const cardHandler = () => {
+        const path = `/card/:${cardData.id}`;
+        editable || props.isSingleCard ||
+            history.push({
+                pathname: path,
+                cardData,
+                readOnly: props.readOnly,
+            });
     };
 
     return (
-        <div className="card card-layout">
+        <div className="card card-layout" onDoubleClick={cardHandler}>
             <CardHeader
                 cardOptions={{ checked: props.checked, editable: editable }}
-                header={tempState.header}
-                selectCard={selectCard}
+                card={tempState}
                 editMode={editMode}
                 fillData={fillData}
                 saveCardDataChanges={saveCardDataChanges}
@@ -71,4 +74,4 @@ Card.propTypes = {
     checked: PropTypes.bool.isRequired,
 };
 
-export default WithLoadingDelay(Card)
+export default WithLoadingDelay(Card);
