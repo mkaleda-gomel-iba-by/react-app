@@ -1,4 +1,4 @@
-import {CREATE_CARD, ADD_FETCHED_CARDS, REMOVE_CARDS, SELECT_CARD, UPDATE_CARD} from './types';
+import {CREATE_CARD, FETCH_CARDS, REMOVE_CARDS, SELECT_CARD, UPDATE_CARD} from './types';
 
 const initialState = {
     cards: [],
@@ -41,7 +41,7 @@ export const cardsReducer = (state = initialState, action) => {
             return updateCard(state, action.payload);
         case SELECT_CARD:
             return cardsSelection(state, action.payload);
-        case ADD_FETCHED_CARDS:
+        case FETCH_CARDS:
             return {cards: action.payload, checkedCardIds: []};
         default:
             return state;

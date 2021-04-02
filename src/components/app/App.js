@@ -4,30 +4,15 @@ import Header from './header';
 import Content from './content';
 import LoginPage from './login';
 import NotFound from './not_found';
-import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
-import {useDispatch} from 'react-redux';
-import {addFetchedCards} from "../../redux/actions";
-import SingleCard from "./content/singleCard";
+import { useDispatch } from 'react-redux';
+import { fetchCards } from '../../redux/actions';
+import SingleCard from './content/singleCard';
 
 function App() {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        async function fetchCards() {
-            const response = await axios(
-                'https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json'
-            );
-            return response.data.slice(0, 15).map(({ Name, About }) => {
-                return {
-                    id: uuidv4(),
-                    header: Name,
-                    body: About,
-                };
-            });
-        }
-
-        fetchCards().then((cards) => dispatch(addFetchedCards(cards)));
+        dispatch(fetchCards());
     }, [dispatch]);
 
     return (
