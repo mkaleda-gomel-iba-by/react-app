@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import './index.css';
 import Input from './input';
+import { useDispatch } from 'react-redux';
+import { login } from '../../../redux/features/user';
 
 function LoginPage() {
+    const dispatch = useDispatch();
+
     const [isValid, setIsValid] = useState(false);
     const [isUsernameValid, setIsUsernameValid] = useState(false);
     const [isPasswordValid, setIsPasswordValid] = useState(false);
 
-    const validateUsername = (value) => {
+    const validateUsername = (value) =>
         setIsUsernameValid(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/.test(value));
-    };
-
     const passwordValidation = (value) =>
         setIsPasswordValid(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value));
 
-    useEffect(() => setIsValid(isUsernameValid && isPasswordValid), [
+    useEffect(() => setIsValid(true/*isUsernameValid && isPasswordValid*/), [
         isUsernameValid,
         isPasswordValid,
     ]);
@@ -31,8 +33,15 @@ function LoginPage() {
                             <form
                                 id="login-form"
                                 className="form"
-                                action=""
-                                method="post"
+                                onSubmit={() => {
+                                    // console.log(data);
+                                    dispatch(
+                                        login({
+                                            username: 'username',
+                                            password: 'password',
+                                        })
+                                    );
+                                }}
                             >
                                 <h3 className="text-center text-info">Sign in</h3>
                                 <Input
