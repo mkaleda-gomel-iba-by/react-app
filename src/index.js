@@ -8,15 +8,9 @@ import {mainReducer} from './redux/mainReducer';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
+import {loggerMiddleware} from "./redux/middleware";
 
-const logger = () => next => action => {
-    console.group(action.type);
-    console.info('Params', action.payload);
-    console.groupEnd();
-    return next(action);
-}
-
-const store = createStore(mainReducer, composeWithDevTools(applyMiddleware(thunk, logger)));
+const store = createStore(mainReducer, composeWithDevTools(applyMiddleware(thunk, loggerMiddleware)));
 
 ReactDOM.render(
     <React.StrictMode>
