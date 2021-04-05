@@ -1,12 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-const admins = {'testAdmin@gmail.com': '12345uiopp'}
+const admins = {'testAdmin@gmail.com': '12345yuiopp'}
 
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
-        username: null,
-        isAdmin: false,
+        username: JSON.parse(localStorage.getItem('auth'))?.username,
+        isAdmin: JSON.parse(localStorage.getItem('auth'))?.isAdmin,
         isLoggingSuccess: true
     },
     reducers: {
@@ -23,6 +23,8 @@ export const userSlice = createSlice({
             } else {
                 state.username = username;
             }
+
+            localStorage.setItem('auth', JSON.stringify({username: state.username, isAdmin: state.isAdmin}))
         },
         resetState(state) {
             state.username = null;

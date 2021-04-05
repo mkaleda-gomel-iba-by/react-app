@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './index.css';
 import Input from './input';
 import { useDispatch } from 'react-redux';
-import { login } from '../../../redux/features/user';
+import { login } from '../../../redux/user';
+import { useHistory } from 'react-router-dom';
 
 function LoginPage() {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [isValid, setIsValid] = useState(false);
     const [isUsernameValid, setIsUsernameValid] = useState(false);
@@ -16,10 +18,21 @@ function LoginPage() {
     const passwordValidation = (value) =>
         setIsPasswordValid(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value));
 
-    useEffect(() => setIsValid(true/*isUsernameValid && isPasswordValid*/), [
+    useEffect(() => setIsValid(isUsernameValid && isPasswordValid), [
         isUsernameValid,
         isPasswordValid,
     ]);
+
+    const loginHandler = (event) => {
+        dispatch(
+            login({
+                username: event.target[0].value.trim(),
+                password: event.target[1].value.trim(),
+            })
+        );
+        history.push('/');
+        // event.preventDefault();
+    };
 
     return (
         <div id="login">
