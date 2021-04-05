@@ -9,7 +9,7 @@ function CardList(props) {
             {props.cards.map((card, index) => (
                 <Card
                     cardData={card}
-                    readOnly={props.readonly}
+                    readOnly={props.readOnly}
                     checked={props.checkedCardIds.includes(card.id)}
                     key={index}
                 />

@@ -11,7 +11,7 @@ function Content() {
     const [addCardModalVisible, setAddCardModalVisible] = useState(false);
     const toggleAddCardModal = () =>
         setAddCardModalVisible((prevState) => !prevState);
-    const readOnly = useSelector(state => state.cards.readonly)
+    const readOnly = useSelector(state => state.cards.readOnly)
 
     return (
         <div className="container-fluid">
