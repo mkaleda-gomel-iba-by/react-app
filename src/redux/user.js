@@ -30,6 +30,7 @@ export const userSlice = createSlice({
             state.username = null;
             state.isAdmin = false;
             state.isLoggingSuccess = true;
+            localStorage.clear()
         }
     }
 });

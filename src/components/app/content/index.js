@@ -6,8 +6,6 @@ import CardsPanel from './CardsPanel';
 import {useSelector} from "react-redux";
 
 function Content() {
-    const [readOnly, setReadOnly] = useState(false);
-
     const [addCardModalVisible, setAddCardModalVisible] = useState(false);
     const toggleAddCardModal = () =>
         setAddCardModalVisible((prevState) => !prevState);
@@ -18,14 +16,12 @@ function Content() {
             <div className="content content-layout">
                 {readOnly || <CardsPanel
                     toggleAddCardModal={toggleAddCardModal}
-                    setReadOnly={setReadOnly}
-                    readOnly={readOnly}
-                />
+                />}
                 <AddCardModal
                     addCardModalVisible={addCardModalVisible}
                     toggleAddCardModal={toggleAddCardModal}
                 />
-                <CardList readOnly={readOnly} />
+                <CardList />
             </div>
         </div>
     );

@@ -4,9 +4,10 @@ import Header from './header';
 import Content from './content';
 import LoginPage from './login';
 import NotFound from './not_found';
-import { useDispatch } from 'react-redux';
-import { fetchCards } from '../../redux/actions';
-import SingleCard from './content/singleCard';
+import {useDispatch} from 'react-redux';
+import SingleCard from "./content/singleCard";
+import {fetchCards} from "../../redux/actions";
+import Settings from "./settings";
 
 function App() {
     const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function App() {
                 <Route path={'/'} exact component={Content} />
                 <Route path={'/login'} exact component={LoginPage} />
                 <Route path="/card/:id" component={SingleCard} />
+                <Route path="/settings" component={Settings} />
                 <Route component={NotFound} />
             </Switch>
         </BrowserRouter>

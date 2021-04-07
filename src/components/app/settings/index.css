@@ -1,0 +1,9 @@
+.settings {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    font-size: 22px;
+    position: relative;
+    padding: 0 .6rem 0 2rem;
+    margin: 6rem 0 0 1rem;;
+}

@@ -46,15 +46,7 @@ function LoginPage() {
                             <form
                                 id="login-form"
                                 className="form"
-                                onSubmit={() => {
-                                    // console.log(data);
-                                    dispatch(
-                                        login({
-                                            username: 'username',
-                                            password: 'password',
-                                        })
-                                    );
-                                }}
+                                onSubmit={(event) => loginHandler(event)}
                             >
                                 <h3 className="text-center text-info">Sign in</h3>
                                 <Input

@@ -22,6 +22,7 @@ const mapStateToProps = (state) => {
     return {
         cards: state.cards.cards,
         checkedCardIds: state.cards.checkedCardIds,
+        readOnly: state.cards.readOnly
     };
 };
 
