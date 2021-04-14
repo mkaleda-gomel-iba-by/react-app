@@ -40,7 +40,7 @@ const Input = styled.input.attrs({ type: 'checkbox' })`
         background-color: rebeccapurple;
     }
 
-    .cards-panel &:checked ~ ${Checkmark}:after {
+    .settings &:checked ~ ${Checkmark}:after {
         display: block;
     }
 `;
@@ -50,7 +50,7 @@ function Checkbox(props) {
         <label>
             <Input
                 checked={props.checked}
-                onChange={() => props.setChecked(!props.checked)}
+                onChange={() => props.setChecked()}
             />
             {props.label}
             <Checkmark />

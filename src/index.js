@@ -3,14 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/app/App';
 import * as serviceWorker from './serviceWorker';
-import {applyMiddleware, createStore} from 'redux';
 import {mainReducer} from './redux/mainReducer';
 import {Provider} from 'react-redux';
-import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import {loggerMiddleware} from "./redux/middleware";
+import {configureStore} from "@reduxjs/toolkit";
 
-const store = createStore(mainReducer, composeWithDevTools(applyMiddleware(thunk, loggerMiddleware)));
+const store = configureStore({middleware: [thunk, loggerMiddleware], reducer: mainReducer})
 
 ReactDOM.render(
     <React.StrictMode>

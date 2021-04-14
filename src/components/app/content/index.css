@@ -8,16 +8,11 @@
 }
 
 .cards-panel {
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
     font-size: 22px;
 }
 
 .cards-panel-layout {
-    position: relative;
-    padding: 0 .6rem 0 2rem;
-    margin: 1rem 0 0 .1rem;;
+    margin-left: 7rem;
 }
 
 .cards-manage-button {

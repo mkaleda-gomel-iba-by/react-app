@@ -8,7 +8,7 @@ export default function Input(props) {
             </label>
             <br />
             <input
-                onChange={(event) => props.validationFunc(event.target.value)}
+                onChange={(event) => props.validationFunc(event.target.value.trim())}
                 type="text"
                 id={props.id}
                 className="form-control"

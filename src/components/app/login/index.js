@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import './index.css';
 import Input from './input';
+import { useDispatch } from 'react-redux';
+import { login } from '../../../redux/user';
+import { useHistory } from 'react-router-dom';
 
 function LoginPage() {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
     const [isValid, setIsValid] = useState(false);
     const [isUsernameValid, setIsUsernameValid] = useState(false);
     const [isPasswordValid, setIsPasswordValid] = useState(false);
 
-    const validateUsername = (value) => {
+    const validateUsername = (value) =>
         setIsUsernameValid(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/.test(value));
-    };
-
     const passwordValidation = (value) =>
         setIsPasswordValid(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value));
 
@@ -18,6 +22,17 @@ function LoginPage() {
         isUsernameValid,
         isPasswordValid,
     ]);
+
+    const loginHandler = (event) => {
+        dispatch(
+            login({
+                username: event.target[0].value.trim(),
+                password: event.target[1].value.trim(),
+            })
+        );
+        history.push('/');
+        // event.preventDefault();
+    };
 
     return (
         <div id="login">
@@ -31,8 +46,7 @@ function LoginPage() {
                             <form
                                 id="login-form"
                                 className="form"
-                                action=""
-                                method="post"
+                                onSubmit={(event) => loginHandler(event)}
                             >
                                 <h3 className="text-center text-info">Sign in</h3>
                                 <Input

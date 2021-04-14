@@ -1,15 +1,16 @@
-import {CREATE_CARD, FETCH_CARDS, REMOVE_CARDS, SELECT_CARD, UPDATE_CARD} from './types';
+import {CREATE_CARD, FETCH_CARDS, REMOVE_CARDS, SELECT_CARD, UPDATE_CARD, CHANGE_READONLY_MODE} from './types';
 
 const initialState = {
     cards: [],
-    checkedCardIds: []
+    checkedCardIds: [],
+    readOnly: false
 };
 
 const removeCards = (state) => {
     const filteredCards = state.cards.filter(
         (card) => !state.checkedCardIds.includes(card.id)
     );
-    return { cards: filteredCards, checkedCardIds: [] };
+    return { ...state, cards: filteredCards, checkedCardIds: [] };
 };
 
 const updateCard = (state, newCard) => {
@@ -42,7 +43,9 @@ export const cardsReducer = (state = initialState, action) => {
         case SELECT_CARD:
             return cardsSelection(state, action.payload);
         case FETCH_CARDS:
-            return {cards: action.payload, checkedCardIds: []};
+            return {...state, cards: action.payload, checkedCardIds: []};
+        case CHANGE_READONLY_MODE:
+            return {...state, readOnly: !state.readOnly};
         default:
             return state;
     }

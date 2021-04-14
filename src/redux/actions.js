@@ -4,6 +4,7 @@ import {
     REMOVE_CARDS,
     SELECT_CARD,
     UPDATE_CARD,
+    CHANGE_READONLY_MODE,
 } from './types';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
@@ -38,4 +39,8 @@ export function fetchCards() {
         });
         dispatch({ type: FETCH_CARDS, payload: data });
     };
+}
+
+export function changeReadOnlyMode() {
+    return { type: CHANGE_READONLY_MODE };
 }
