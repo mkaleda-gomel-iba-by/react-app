@@ -1,5 +1,5 @@
 import React from 'react';
-import {configure, shallow} from 'enzyme';
+import {configure, mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16'
 import {Card} from "./";
 
@@ -47,7 +47,7 @@ describe('CardHeader', () => {
             isSingleCard: false,
             checked: false,
         };
-        wrapper = shallow(<Card {...props} />);
+        wrapper = mount(<Card {...props} />);
     });
 
     afterEach(() => {
@@ -75,26 +75,26 @@ describe('CardHeader', () => {
     });
 
     it('should not redirect', () => {
-        wrapper.find('CardHeader').dive().find('.fa-pencil').simulate('click');
+        wrapper.find('.fa-pencil').simulate('click');
         wrapper.find('div.card').simulate('doubleclick');
         expect(mockHistory).not.toHaveBeenCalled();
     });
 
     it('should set editable to true ', () => {
-        wrapper.find('CardHeader').dive().find('.fa-pencil').simulate('click');
+        wrapper.find('.fa-pencil').simulate('click');
         expect(setState).toBeTruthy();
     });
 
     it('should invoke fill data', () => {
-        wrapper.find('CardHeader').dive().find('.card-header-title')
+        wrapper.find('.card-header-title')
             .simulate('input', {target: {value: "test"}});
 
         expect(setState).toBeTruthy();
     });
 
     it('should invoke update card', () => {
-        wrapper.find('CardHeader').dive().find('.fa-pencil').simulate('click');
-        wrapper.find('CardHeader').dive().find('.fa-folder').simulate('click');
+        wrapper.find('.fa-pencil').simulate('click');
+        wrapper.find('.fa-folder').simulate('click');
 
         expect(mockDispatch).toHaveBeenCalledWith({
             payload: {body: "body", header: "header", id: "id"},
@@ -103,14 +103,16 @@ describe('CardHeader', () => {
     });
 
     it('should invoke restore card', () => {
-        wrapper.find('CardHeader').dive().find('.fa-pencil').simulate('click');
-        wrapper.find('CardHeader').dive().find('.fa-close').simulate('click');
+        wrapper.find('.fa-pencil').simulate('click');
+        wrapper.find('.fa-close').simulate('click');
 
         expect(setState).toBeTruthy();
     });
 
     it('should invoke useEffect', () => {
         wrapper.setProps({...props, readOnly: true})
+        wrapper.update()
 
+        expect(setState).toBeTruthy();
     });
 });
