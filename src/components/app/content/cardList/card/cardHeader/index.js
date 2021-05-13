@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
+import React, {Fragment} from 'react';
 import classNames from 'classnames';
 import './index.css';
-import { selectCard } from '../../../../../../redux/actions';
+import {selectCard} from '../../../../../../redux/actions';
 import {useDispatch} from "react-redux";
 
-function CardHeader(props) {
+export function CardHeader(props) {
     const dispatch = useDispatch();
     const editPanel = (
         <Fragment>
@@ -49,7 +49,7 @@ function CardHeader(props) {
                 type="text"
                 value={props.card.header}
                 disabled={!props.cardOptions.editable}
-                onInput={(event) => props.fillData({ header: event.target.value })}
+                onInput={(event) => props.fillData({header: event.target.value})}
             />
             <div className="panel panel-layout">{panel}</div>
         </div>
